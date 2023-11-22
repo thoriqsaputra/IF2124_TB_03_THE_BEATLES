@@ -1,4 +1,4 @@
-file_path = 'Tubes\PDA.txt'
+file_path = 'PDA.txt'
 arr=[]
 
 #Membaca PDA lalu memindahkan ke array sementara

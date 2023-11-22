@@ -1,52 +1,44 @@
-file_path = 'Tubes\PDA.txt'
-arr=[]
+class Stack:
+    def __init__(S):
+        S.items = []
 
-#Membaca PDA lalu memindahkan ke array sementara
-with open(file_path, 'r') as file:
-    # Membaca file baris per baris
-    for line in file:
-        arr.append(line)
+    def is_empty(S):
+        return len(S.items) == 0
 
-#Mengambil state dari array PDA untuk dipindahkan ke array state
-arrState=[]
-for i in range (len(arr[0])):
-    if(i%2==0):
-        arrState.append(arr[0][i])
+    def push(S, item):
+        S.items.append(item)
 
-#Mengambil input word dari array PDA untuk dipindahkan ke array input
-arrInput=[]
-temp=""
-for i in range (len(arr[1])):
-    if(arr[1][i]==" "):
-        arrInput.append(temp)
-        temp=""
-    else:
-        temp=temp+arr[1][i]
-
-#Mengambil stack symbol dari array PDA untuk dipindahkan ke array symbol
-arrSymbol=[]
-for i in range (len(arr[2])):
-    if(i%2==0):
-        arrSymbol.append(arr[2][i])
-
-startState = arr[3] # Mengambil start state
-startStack = arr[4] # Mengambil start stack
-acceptState = arr[5] # Mengambil accept state
-
-#Mengambil list production dari array PDA untuk dipindahkan ke array list production
-arrListProduction = []
-for i in range (len(arr)):
-    temp2=[]
-    i = i+6
-    print(arr[i])
-    for j in range (len(arr[i])):
-        if(arr[i][j]==" "):
-            temp2.append(temp)
-            temp=""
+    def pop(S):
+        if not S.is_empty():
+            return S.items.pop()
         else:
-            temp=temp+arr[i][j]
-    print(temp2)
-    i = i - 6
-print(arrListProduction)
+            raise IndexError("pop pada stack kosong")
 
+    def Top(S):
+        if not S.is_empty():
+            return S.items[-1]
+        else:
+            raise IndexError("stack kosong")
 
+    def size(S):
+        return len(S.items)
+    
+def display_stack(stack):
+    if stack.is_empty():
+        print("Stack is empty")
+    else:
+        print("Stack:")
+        for item in reversed(stack.items):
+            print("|", item, "|")
+            print("|" + "-" * (len(str(item)) + 2) + "|")
+
+# Example usage:
+stack = Stack()
+
+# Push elements onto the stack
+stack.push("AB")
+stack.push("AE")
+stack.push("AF")
+
+# Display the stack
+display_stack(stack)
