@@ -1,50 +1,70 @@
-from bs4 import BeautifulSoup
-import re
-
-spesial_case = ['type', 'method']
-
-def parse_html(html):
-    result_array = []
-    soup = BeautifulSoup(html, 'html.parser')
-
-    for tag in soup.recursiveChildGenerator():
-        if tag.name:
-            result_array.append(f'<{tag.name}')
-
-            for attr, value in tag.attrs.items():
-                if attr in spesial_case:
-                    result_array.append(f'{attr}="{value}"')
+def process_line(line):
+    processed_tokens = []
+    current_token = ""
+    in_tag = False  # Flag to track whether currently inside a tag
+    in_attribute = False  # Flag to track whether currently inside an attribute
+    current_attribute = ""  # Variable to store the current attribute name
+    first = True
+    
+    for char in line:
+        if char.isspace() and not in_attribute:
+            if current_token:
+                processed_tokens.append(current_token)
+                current_token = ""
+        elif char == '<':
+            if current_token:
+                processed_tokens.append(current_token)
+                current_token = ""
+            current_token += char
+            in_tag = True
+            in_attribute = False
+        elif char == '>':
+            if in_tag:
+                if current_token.startswith('</') or current_token.startswith('--'):
+                    # Exception for closing tags
+                    current_token += char
+                    processed_tokens.append(current_token)
                 else:
-                    result_array.append(f'{attr}="_"')
-
-            if tag.string:
-                result_array.append('>')
-                result_array.extend(tag.string.split())
-                result_array.append(f'</{tag.name}>')
-                
+                    processed_tokens.append(current_token)
+                    processed_tokens.append(char)
+                current_token = ""
+                in_tag = False
             else:
-                # Check if the tag is self-closing
-                if not tag.find_all(recursive=False):
-                    result_array.append('>')
-                else:
-                    result_array.append('>')
-    if not result_array:
-        spesial = re.split(r'(?<=>|\s)', html, 1)
-        spesial = list(map(lambda s: s.replace(" ", ""), spesial))
-        spesial = [item for item in spesial if item != ""]
-        result_array.extend(spesial) 
+                processed_tokens.append(current_token)
+                processed_tokens.append(char)
+                current_token = ""
+        elif char == '=' and in_tag:
+            # Handle the special case for attributes
+            current_attribute = current_token.lower()
+            current_token += char
+            in_attribute = True
+            attribute_value = ""
+        elif char == '"' and in_attribute and first:
+            current_token += char
+            in_attribute = True
+            first = False
+        elif (char.isalpha() or char.isspace()) and in_attribute:
+            attribute_value += char
+        elif char == '"' and not first and in_attribute:
+            if current_attribute in ['type', 'method']:
+                # Change the attribute value for 'type' and 'method'
+                current_token += f'{attribute_value}"'
+            else:
+                current_token += '_"'
+            in_attribute = False
+            first = True
+            attribute_value = ''
+            current_attribute = ''
+        elif not in_attribute:
+            current_token += char
 
-    return result_array
+    if current_token:
+        processed_tokens.append(current_token)
 
-def parse_html_file(filename):
-    # Open the file in read mode ('r')
-    with open(filename, 'r') as file:
-        # Read all lines into a list
-        lines = file.readlines()
-    list_html = []
-    # Iterate through each line and append to the array after parsing
-    for line in lines:
-        list_html.append(parse_html(line.strip()))
-    return list_html
+    return processed_tokens
 
-print(parse_html_file('example.txt'))
+# Example usage:
+with open('example.txt', 'r') as file:
+    for line in file:
+        processed_tokens = process_line(line)
+        print(processed_tokens)
