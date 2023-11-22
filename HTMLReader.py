@@ -41,9 +41,10 @@ def parse_html_file(filename):
     with open(filename, 'r') as file:
         # Read all lines into a list
         lines = file.readlines()
-
+    list_html = []
     # Iterate through each line and append to the array after parsing
     for line in lines:
-        print(parse_html(line.strip()))
+        list_html.append(parse_html(line.strip()))
+    return list_html
 
-parse_html_file('example.txt')
+print(parse_html_file('example.txt'))
