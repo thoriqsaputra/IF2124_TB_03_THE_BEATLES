@@ -1,29 +1,49 @@
-from lxml import etree
+from bs4 import BeautifulSoup
+import re
 
-def parse_html_to_arrays(file_path):
-    with open(file_path, 'r') as file:
-        html_content = file.read()
+spesial_case = ['type', 'method']
 
-    root = etree.fromstring(html_content)
+def parse_html(html):
+    result_array = []
+    soup = BeautifulSoup(html, 'html.parser')
 
-    def process_element(element):
-        result = [f'<{element.tag}']
-        for key, value in element.attrib.items():
-            # Replace the value inside quotation marks with an underscore
-            result.append(f'{key}="_"')
-        result.append('>')
-        if element.text:
-            result.extend(element.text.split())
-        for child in element:
-            result.extend(process_element(child))
-        result.append(f'</{element.tag}>')
-        return result
+    for tag in soup.recursiveChildGenerator():
+        if tag.name:
+            result_array.append(f'<{tag.name}')
 
-    result_arrays = process_element(root)
-    return [result_arrays]
+            for attr, value in tag.attrs.items():
+                if attr in spesial_case:
+                    result_array.append(f'{attr}="{value}"')
+                else:
+                    result_array.append(f'{attr}="_"')
 
-# Example usage:
-# file_path = 'example.txt'
-# html_arrays = parse_html_to_arrays(file_path)
-# for array in html_arrays:
-#     print(array)
+            if tag.string:
+                result_array.append('>')
+                result_array.extend(tag.string.split())
+                result_array.append(f'</{tag.name}>')
+                
+            else:
+                # Check if the tag is self-closing
+                if not tag.find_all(recursive=False):
+                    result_array.append('>')
+                else:
+                    result_array.append('>')
+    if not result_array:
+        spesial = re.split(r'(?<=>|\s)', html, 1)
+        spesial = list(map(lambda s: s.replace(" ", ""), spesial))
+        spesial = [item for item in spesial if item != ""]
+        result_array.extend(spesial) 
+
+    return result_array
+
+def parse_html_file(filename):
+    # Open the file in read mode ('r')
+    with open(filename, 'r') as file:
+        # Read all lines into a list
+        lines = file.readlines()
+
+    # Iterate through each line and append to the array after parsing
+    for line in lines:
+        print(parse_html(line.strip()))
+
+parse_html_file('example.txt')
