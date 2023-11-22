@@ -1,6 +1,7 @@
 <html> 
   <head> 
-    <title href="ggg gggg">Simple Webpage</title> 
+    <title href="gg">Simple Webpage</title> 
+    <link href="gg">
   </head> 
   <body> 
     <h1>Hello, World!</h1> 

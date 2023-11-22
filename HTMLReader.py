@@ -23,7 +23,7 @@ def parse_html_to_arrays(file_path):
     return [result_arrays]
 
 # Example usage:
-file_path = 'example.txt'
-html_arrays = parse_html_to_arrays(file_path)
-for array in html_arrays:
-    print(array)
+# file_path = 'example.txt'
+# html_arrays = parse_html_to_arrays(file_path)
+# for array in html_arrays:
+#     print(array)
