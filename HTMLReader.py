@@ -66,5 +66,6 @@ def process_line(line):
 # Example usage:
 with open('example.txt', 'r') as file:
     for line in file:
-        processed_tokens = process_line(line)
+        html = line.strip()
+        processed_tokens = process_line(html)
         print(processed_tokens)
