@@ -22,15 +22,15 @@ def initiate():
     print(batman)
 
     while True:
-        file_name = input("Enter the HTML File Name: ")
+        file_path = input("Enter the HTML File Path: ")
         
-        if os.path.exists(file_name):
-            print(f"The file {file_name} exists.")
+        if os.path.exists(file_path):
+            print(f"The file {file_path} exists.")
             print("\nHTML CHECKER \n")
             break
         else:
-            print(f"The file {file_name} does not exist. Please enter a valid file name.") 
-    return file_name
+            print(f"The file {file_path} does not exist. Please enter a valid file path.") 
+    return file_path
 
 class Stack:
     def __init__(S):
