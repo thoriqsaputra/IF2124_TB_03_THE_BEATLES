@@ -1,5 +1,36 @@
 import StatesReader
 import HTMLReader
+import os
+
+def initiate():
+    batman = """
+    _____                                                                                                                 _____ 
+   ( ___ )                                                                                                               ( ___ )
+    |   |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|   | 
+    |   |  ________  ________  ________          ________       ___    ___ ________   _________  ________     ___    ___  |   | 
+    |   | |\   __  \|\   ___ \|\   __  \        |\   ____\     |\  \  /  /|\   ___  \|\___   ___\\   __  \   |\  \  /  /|  |   | 
+    |   | \ \  \|\  \ \  \_|\ \ \  \|\  \       \ \  \___|_    \ \  \/  / | \  \\ \  \|___ \  \_\ \  \|\  \  \ \  \/  / /  |   | 
+    |   |  \ \   ____\ \  \ \\ \ \   __  \       \ \_____  \    \ \    / / \ \  \\ \  \   \ \  \ \ \   __  \  \ \    / /    |   | 
+    |   |   \ \  \___|\ \  \_\\ \ \  \ \  \       \|____|\  \    \/  /  /   \ \  \\ \  \   \ \  \ \ \  \ \  \  /     \/     |   | 
+    |   |    \ \__\    \ \_______\ \__\ \__\        ____\_\  \ __/  / /      \ \__\\ \__\   \ \__\ \ \__\ \__\/  /\   \    |   | 
+    |   |     \|__|     \|_______|\|__|\|__|       |\_________\\___/ /        \|__| \|__|    \|__|  \|__|\|__/__/ /\ __\   |   | 
+    |   |                                          \|_________\|___|/                                        |__|/ \|__|  |   | 
+    |___|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|___| 
+   (_____)                                                                                                               (_____)   
+    """
+
+    print(batman)
+
+    while True:
+        file_name = input("Enter the HTML File Name: ")
+        
+        if os.path.exists(file_name):
+            print(f"The file {file_name} exists.")
+            print("\nHTML CHECKER \n")
+            break
+        else:
+            print(f"The file {file_name} does not exist. Please enter a valid file name.") 
+    return file_name
 
 class Stack:
     def __init__(S):
@@ -45,17 +76,17 @@ stack.push("Z")
 # Display the stack
 # display_stack(stack)
 
-file_path = 'example.txt'
+file_path = initiate()
 
 states,input_symbols,stack_symbols,start_state,start_stack_symbol,accept_states,accept_condition,transitions_matrix = StatesReader.StatesReader()
 
 currentState=start_state
 
-
-
 with open('example.txt', 'r') as file:
     for line in file:
         html = line.strip()
+        if not html:
+            continue
         processed_tokens = HTMLReader.process_line(html)
         cek1=0
         for array in processed_tokens:

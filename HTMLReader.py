@@ -62,10 +62,3 @@ def process_line(line):
         processed_tokens.append(current_token)
 
     return processed_tokens
-
-# Example usage:
-# with open('example.txt', 'r') as file:
-#     for line in file:
-#         html = line.strip()
-#         processed_tokens = process_line(html)
-#         print(processed_tokens)
