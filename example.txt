@@ -1,10 +1,15 @@
 <html> 
+    <!-- <Custom el -->
   <head> 
-    <title href="gg">Simple Webpage</title> 
-    <link href="gg">
-  </head> 
+    <title>Simple Webpage</title> 
+  </head>
   <body> 
-    <h1>Hello, World!</h1> 
-    <p>This is a simple webpage.</p> 
-  </body> 
+    <h1>Hello, World!</h1>
+    <h2>Welcome to my page</h2>
+    <img src="Welcome Banner"> 
+    <!-- Custom element -->
+    <p>This is a <em>simple</em> webpage.</p> 
+    <div id="footer" class="footer"> This is the end of the page </div>
+  </body>
 </html>
+
