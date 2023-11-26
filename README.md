@@ -1,4 +1,4 @@
-# Tugas Besar IF2124_TB_03_
+# Tugas Besar IF2124_TB_03
 
 # The Beatles
 
@@ -16,7 +16,7 @@
 ```bash
 python main.py
 ```
--- Hasil Pengecekan akan tampil pada terminal
+- Hasil Pengecekan akan tampil pada terminal
 
 ## Pembagian Tugas
 
