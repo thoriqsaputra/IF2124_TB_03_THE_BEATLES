@@ -105,7 +105,7 @@ with open('example.txt', 'r') as file:
                     if(stack.Top()==cs[2]):
                         cek=1
                         break
-                    else:
+                    elif(cs[2]=='e'):
                         for i in range(len(array)):
                             if(array[i]=='<' or array[i]=='>'):
                                 cek = 0
