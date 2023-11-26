@@ -16,7 +16,12 @@
 ```bash
 python main.py
 ```
+- Input nama file HTML yang ingin dicek
+  
 - Hasil Pengecekan akan tampil pada terminal
+
+- Program akan menerima antara Y dan N untuk pengulangan program dan penyelesaian
+
 
 ## Pembagian Tugas
 
