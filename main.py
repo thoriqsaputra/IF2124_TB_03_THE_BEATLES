@@ -1,7 +1,6 @@
 import StatesReader
 import HTMLReader
 import os
-
 def initiate():
     batman = """
     _____                                                                                                                 _____ 
@@ -107,13 +106,13 @@ with open('example.txt', 'r') as file:
                         cek=1
                         break
                     else:
-                        # for i in range(len(array)):
-                        #     if(array[i]=='<' or array[i]=='>'):
-                        #         cek = 0
-                        #         break
-                        #     else:
-                        #         cek=1
-                        cek=1
+                        for i in range(len(array)):
+                            if(array[i]=='<' or array[i]=='>'):
+                                cek = 0
+                                break
+                            else:
+                                cek=1
+                        #cek=1
             if(cek==0):
                 cek1=0
                 print(array)
@@ -124,6 +123,7 @@ with open('example.txt', 'r') as file:
             print("tidak accepted")
             print(line)
             break
+        print(line)
 
 display_stack(stack)
 
