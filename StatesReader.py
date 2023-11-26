@@ -1,6 +1,5 @@
-# Tentukan jalur file
 def StatesReader():
-    file_path = 'PDA.txt'
+    file_path = 'data/PDA.txt'
 
     # Inisialisasi array kosong
     states = []
@@ -27,21 +26,9 @@ def StatesReader():
         # Inisialisasi list untuk menyimpan array (matriks)
         transitions_matrix = []
 
-        # Read the rest of the lines and populate the matrix
+        # Line setelahnya akan dimasukkan ke sebuah matriks
         for line in lines[7:]:
             current_array = line.strip().split()
             transitions_matrix.append(current_array)
+    
     return states,input_symbols,stack_symbols,start_state,start_stack_symbol,accept_states,accept_condition,transitions_matrix
-
-# print("States:", states)
-# print("Input Symbols:", input_symbols)
-# print("Stack Symbols:", stack_symbols)
-# print("Start State:", start_state)
-# print("Start Stack Symbol:", start_stack_symbol)
-# print("Accept States:", accept_states)
-# print("Accept Condition:", accept_condition)
-
-# print("Transitions Matrix:")
-# for row in transitions_matrix:
-#     print(row)
-# print(transitions_matrix[0][4][1])
